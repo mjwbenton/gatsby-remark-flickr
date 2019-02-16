@@ -1,0 +1,25 @@
+{
+  "name": "@mattb.tech/gatsby-remark-flickr",
+  "version": "1.0.0",
+  "description": "Gatsby remark plugin to support refering to flickr photo_ids as image URLs",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "author": "Matt Benton <m@mattb.tech>",
+  "license": "MIT",
+  "repository": "mjwbenton/gatsby-remark-flickr",
+  "devDependencies": {
+    "@types/node": "^11.9.4",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "@mattb.tech/flickr-api": "^1.1.0"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
+}
