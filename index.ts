@@ -41,11 +41,14 @@ function generateSrcSet(sources: PhotoSource[]): string {
     .join(", ");
 }
 
-module.exports = async ({
-  markdownAST
-}: {
-  markdownAST: MarkdownNode;
-}): Promise<any> => {
+module.exports = async (
+  {
+    markdownAST
+  }: {
+    markdownAST: MarkdownNode;
+  },
+  { sizes }: { sizes: string | undefined }
+): Promise<any> => {
   if (!process.env.FLICKR_API_KEY) {
     return;
   }
@@ -57,11 +60,12 @@ module.exports = async ({
         flickrPhotoIdForNode(node)
       );
       const htmlNode = node as MarkdownNode;
-      const src = response.mainSource.url;
-      const srcset = generateSrcSet(response.sources);
-      const alt = node.alt || response.title;
+      const srcAttr = `src="${response.mainSource.url}"`;
+      const srcsetAttr = `srcset="${generateSrcSet(response.sources)}"`;
+      const altAttr = `alt="${node.alt || response.title}"`;
+      const sizesAttr = sizes ? `sizes="${sizes}"` : "";
       htmlNode.type = "html";
-      htmlNode.value = `<img src="${src}" srcset="${srcset}" alt="${alt}" />`;
+      htmlNode.value = `<img ${srcAttr} ${srcsetAttr} ${altAttr} ${sizesAttr} />`;
       htmlNode.url = undefined;
       htmlNode.alt = undefined;
     })
