@@ -1,3 +1,4 @@
+import escape from "escape-html";
 import { getPhoto, PhotoSource } from "@mattb.tech/flickr-api";
 
 const FLICKR_PROTOCOL = "flickr://";
@@ -62,7 +63,7 @@ module.exports = async (
       const htmlNode = node as MarkdownNode;
       const srcAttr = `src="${response.mainSource.url}"`;
       const srcsetAttr = `srcset="${generateSrcSet(response.sources)}"`;
-      const altAttr = `alt="${node.alt || response.title}"`;
+      const altAttr = `alt="${escape(node.alt || response.title)}"`;
       const sizesAttr = sizes ? `sizes="${sizes}"` : "";
       htmlNode.type = "html";
       htmlNode.value = `<img ${srcAttr} ${srcsetAttr} ${altAttr} ${sizesAttr} />`;
